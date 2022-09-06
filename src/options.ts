@@ -1,5 +1,11 @@
 export interface Options {
   /**
+   * The verbosity level to use.
+   * @default 0
+   */
+  verbose?: number;
+
+  /**
    * The relative path of the .ts entrypoint within the source directory.
    * @default "index.ts"
    */

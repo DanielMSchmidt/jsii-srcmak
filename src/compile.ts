@@ -13,6 +13,9 @@ export async function compile(workdir: string, options: Options) {
   validateOptions(options);
 
   const args = ['--silence-warnings', 'reserved-word'];
+  if (options.verbose && options.verbose > 0) {
+    args.push(`-${new Array(options.verbose).fill('v').join('')}`);
+  }
   const entrypoint = options.entrypoint ?? 'index.ts';
 
   if (path.extname(entrypoint) !== '.ts') {

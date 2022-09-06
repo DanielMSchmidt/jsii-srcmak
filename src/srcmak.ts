@@ -28,7 +28,11 @@ export async function srcmak(srcdir: string, options: Options = { }) {
     }
 
     // run pacmak to generate code
-    await exec(pacmakModule, ['--code-only'], { cwd: workdir });
+    const pacmakArgs = ['--code-only'];
+    if (options.verbose && options.verbose > 0) {
+      pacmakArgs.push(`-${new Array(options.verbose).fill('v').join('')}`);
+    }
+    await exec(pacmakModule, pacmakArgs, { cwd: workdir });
 
     // extract code based on selected languages
     if (options.python) {

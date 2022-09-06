@@ -16,6 +16,13 @@ async function main() {
     .option('golang-outdir', { desc: 'golang output directory (requires --golang-module)', type: 'string' })
     .option('golang-module', { desc: 'the golang module to use for all generated types', type: 'string' })
     .option('golang-package', { desc: 'the golang package name to use for all generated types', type: 'string' })
+    .option('verbose', {
+      alias: 'v',
+      type: 'boolean',
+      desc: 'emit verbose build output',
+      count: true,
+      default: 0,
+    })
     .showHelpOnFail(true)
     .help();
 
@@ -30,6 +37,7 @@ async function main() {
 
   const srcdir = argv._[0] as string;
   await srcmak(srcdir, {
+    verbose: argv.verbose,
     entrypoint: argv.entrypoint,
     ...parseDepOption(),
     ...parseJsiiOptions(),
